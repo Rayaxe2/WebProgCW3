@@ -4,7 +4,7 @@ function NewUserHandler(event) {
 
     console.log($("[name = username_inp]").val().length == 0);
     
-    if(($("[name = username_inp]").val().length == 0) || ($("[name = password_inp]").val().length == 0) || ($("[name = email_inp]").val().length == 0) || ($("[name = dob_inp]").val().length == 0)){
+    if(($("[name = firstname_inp]").val().length == 0) || ($("[name = lastname_inp]").val().length == 0) || ($("[name = username_inp]").val().length == 0) || ($("[name = password_inp]").val().length == 0) || ($("[name = email_inp]").val().length == 0) || ($("[name = dob_inp]").val().length == 0)){
         alert("Please complete the sign in form without leaving any blank inputs.");
         return false;
     }

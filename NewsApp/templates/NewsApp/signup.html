@@ -3,10 +3,7 @@
 
 {% block content %}
     <script type="text/javascript" src="{% static 'NewsApp\JavaScripts\signuphandler.js' %}"></script>
-    <script type="text/javascript" src="{% static 'NewsApp\JavaScripts\JSSignUpInputCheckers.js' %}"></script>
-
     <script>
-        EmptySignUpFormChecker();
         $(document).ready(
             function(){
                 $('#SignUpForm').submit(NewUserHandler);
@@ -15,38 +12,50 @@
     </script>
 
    <div id='SignUpFormDiv'>
-        <table id="SignUpFormTable">
-
-            <tr>
-                <th colspan='2' align='left'><h2>Sign In</h2></th>
-            </tr>
-
-        <form id='SignUpForm' method='POST' action="{% url 'SignUpHandler' %}">
-        {% csrf_token %}
-                <tr>
-                    <td><label> Username: </label></td>
-                    <td><input type ='text', name='username_inp' size='25' maxlength='30'/> </td>
-                </tr>
+        {% if loggedin %}
+            <p>You're already now logged in</p>
+        {% else %}
+            <table id="SignUpFormTable">
 
                 <tr>
-                    <td><label> Password: </label></td>
-                    <td><input type ='password', name='password_inp' size='25'/></td>
+                    <th colspan='2' align='left'><h2>Sign Up</h2></th>
                 </tr>
 
-                <tr>
-                    <td><label> Email:</label></td>
-                    <td><input type ='email', name='email_inp' size='25'/></td>
-                </tr>
+            <form id='SignUpForm' method='POST' action="{% url 'SignUpHandler' %}">
+            {% csrf_token %}
+                    <tr>
+                        <td><label> Firstname: </label></td>
+                        <td><input type ='text', name='firstname_inp' size='25' maxlength='150'/> </td>
+                    </tr>
+                    <tr>
+                        <td><label> Lastname: </label></td>
+                        <td><input type ='text', name='lastname_inp' size='25' maxlength='150'/> </td>
+                    </tr>
+                    <tr>
+                        <td><label> Username: </label></td>
+                        <td><input type ='text', name='username_inp' size='25' maxlength='150'/> </td>
+                    </tr>
 
-                <tr>
-                    <td><label> Date of birth: </label></td>
-                    <td><input type ='date', name='dob_inp' size='25'/></td>
-                </tr>
-                <tr colspan='2'>
-                    <td><input type='submit' value='Register'></td>
-                </tr>
-            </table>
-            <span id='ErrorMessages'><span>
-        </form>
-</div>
+                    <tr>
+                        <td><label> Password: </label></td>
+                        <td><input type ='password', name='password_inp' size='25' maxlength='128'/></td>
+                    </tr>
+
+                    <tr>
+                        <td><label> Email:</label></td>
+                        <td><input type ='email', name='email_inp' size='25' maxlength='254'/></td>
+                    </tr>
+
+                    <tr>
+                        <td><label> Date of birth: </label></td>
+                        <td><input type ='date', name='dob_inp' size='25'/></td>
+                    </tr>
+                    <tr colspan='2'>
+                        <td><input type='submit' value='Register'></td>
+                    </tr>
+                </table>
+                <span id='ErrorMessages'><span>
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}

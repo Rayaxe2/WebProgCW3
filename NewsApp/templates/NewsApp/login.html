@@ -1,0 +1,42 @@
+{% extends "NewsApp/mainpage.html" %}
+{% load static %}
+
+{% block content %}
+    <script type="text/javascript" src="{% static '\NewsApp\JavaScripts\loginhandler.js' %}"></script>
+    <script>
+        $(document).ready(
+            function(){
+                $('#LogInForm').submit(LogInUserHandler);
+            }
+        );
+    </script>
+
+   <div id='LogInFormDiv'>
+       {% if loggedin %}
+           <p>You're already now logged in</p>
+       {% else %} 
+            <table id="LogInFormTable">
+                <tr>
+                    <th colspan='2' align='left'><h2>Log In</h2></th>
+                </tr>
+
+                <form id='LogInForm' method='POST' action="{% url 'LoginHandler' %}">
+                {% csrf_token %}
+                    <tr>
+                        <td><label> Username: </label></td>
+                        <td><input type ='text', name='username_inp' size='25' maxlength='150'/> </td>
+                    </tr>
+
+                    <tr>
+                        <td><label> Password: </label></td>
+                        <td><input type ='password', name='password_inp' size='25' maxlength='128'/></td>
+                    </tr>
+                    <tr colspan='2'>
+                        <td><input type='submit' value='Login'></td>
+                    </tr>
+                </table>
+                <span id='ErrorMessages'><span>
+            </form>
+       {% endif %}
+   </div>
+{% endblock %}
