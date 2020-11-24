@@ -17,7 +17,7 @@ def SignUp(request):
 def SignUpHandler(request):
     FormInfo = request.POST
     #Checks to see if all form inputs had values
-    if 'username_inp' in FormInfo and 'password_inp' in FormInfo and 'email_inp' in FormInfo and 'dob_inp' in FormInfo:
+    if FormInfo['username_inp'] and FormInfo['password_inp'] and FormInfo['email_inp'] and FormInfo['dob_inp']:
         #If the provided username was taken, tell the client
         if SiteUser.objects.filter(pk=str(FormInfo['username_inp'])).exists():
             return JsonResponse({
@@ -27,9 +27,9 @@ def SignUpHandler(request):
 
         #Create record for new user
         NewUser = SiteUser(
-            Username = FormInfo['username_inp']
-            Password = FormInfo['password_inp']
-            Email = FormInfo['email_inp']
+            Username = FormInfo['username_inp'],
+            Password = FormInfo['password_inp'],
+            Email = FormInfo['email_inp'],
             DOB = FormInfo['dob_inp']
         )
         NewUser.save()
@@ -37,9 +37,9 @@ def SignUpHandler(request):
         return JsonResponse({
                 'Success' : 'T',
             }) #Resigtered!
-            
+
     else:
-        return return JsonResponse({
+        return JsonResponse({
                 'Success' : 'F',
                 'Issue' : 'Missing Inputs'
             }) #missing credentials
